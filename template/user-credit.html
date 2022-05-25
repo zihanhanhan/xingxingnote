@@ -1,0 +1,63 @@
+{% extends 'base.html' %}  {# 将当期那页面继承至base.html模板 #}
+{% block content %}
+
+
+<!-- 中部区域布局 -->
+<div class="container" style="margin-top: 20px;">
+    <div class="row">
+
+        <!-- 中部区域布局 -->
+        <div class="container" style="margin-top: 10px;">
+            <div class="row">
+                <div class="col-sm-2 col-12" style="padding: 0px 10px; ">
+                    <div class="col-12 admin-side" style="height: 320px">
+                        <!-- 绘制左侧菜单栏并添加正确的超链接 -->
+                        <ul>
+                            <li><a href="/ucenter-1"><span class="oi oi-heart" aria-hidden="true"></span>&nbsp;&nbsp;我的收藏</a>
+                            </li>
+                            &nbsp;&nbsp;
+                            <li><a href="/ucenter/post"><span class="oi oi-zoom-in" aria-hidden="true"></span>&nbsp;&nbsp;我要投稿</a>
+                            </li>
+                            &nbsp;&nbsp;
+                            <!-- 普通用户投稿，编辑角色直接发布文章 -->
+                            <li><a href="/ucenter/article-1"><span class="oi oi-shield" aria-hidden="true"></span>&nbsp;&nbsp;我的文章</a>
+                            </li>
+                            &nbsp;&nbsp;
+                            <li><a href="/ucenter/comment-1"><span class="oi oi-task" aria-hidden="true"></span>&nbsp;&nbsp;我的评论</a>
+                            </li>
+                            &nbsp;&nbsp;
+                            <li><a href="/ucenter/info"><span class="oi oi-person" aria-hidden="true"></span>&nbsp;&nbsp;个人资料</a>
+                            </li>
+                            &nbsp;&nbsp;
+                            <li><a href="/ucenter/credit"><span class="oi oi-account-login" aria-hidden="true"></span>&nbsp;&nbsp;我的积分</a>
+                            </li>
+                            &nbsp;&nbsp;
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-sm-10 col-12" style="padding: 0px 10px">
+                    <div class="col-12 admin-main">
+                        <div class="col-12" style="padding: 10px;">
+                            <table class="table col-12">
+                                <thead style="font-weight: bold">
+                                <tr>
+                                    <td class="text-center" width="100%" align="center">积分余额</td>
+
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <td align="center">{{credit}}</td>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+
+
+</body>
+</html>
+
+{% endblock %}

@@ -1,0 +1,146 @@
+        <div class="col-sm-3 col-12" style="padding: 0px 10px;">
+            <div class="col-12 search-bar form-group row">
+                <div class="col-8">
+                    <input type="text" class="form-control" id="keyword" placeholder="请输入关键字" onkeyup="doSearch(event)"/>
+                </div>
+                <div class="col-4" style="text-align:right;">
+                    <button type="button" class="btn btn-primary" onclick="doSearch(null)">搜索</button>
+                </div>
+            </div>
+
+            <div class="col-12 side">
+                <div class="tip" style="text-align: center;">最新文章</div>
+                <ul id="last"></ul>
+            </div>
+
+            <div class="col-12 side">
+                <div class="tip" style="text-align: center;">最多阅读</div>
+                <ul id="most"></ul>
+            </div>
+
+            <div class="col-12 side" >
+                <div class="tip" style="text-align: center;">特别推荐</div>
+                <ul id="recommended"></ul>
+            </div>
+            <div class="col-12 side" id="fixedmenu">
+                <div class="bi bi-arrow-up tip" style="background-color: #5a6268; text-align: center; cursor: pointer;" onclick="gotoTop()"></div>
+            </div>
+        </div>
+
+
+<script type="text/javascript">
+    function doSearch(enter) {
+        if (enter != null && enter.keyCode != 13){
+            return false;
+        }
+        var keyword = $.trim($("#keyword").val());
+        if(keyword.length == 0 || keyword.length > 10 || keyword.indexOf('%') >= 0){
+            // window.alert("您搜索的关键字不合法");
+            bootbox.alert({'title':'错误提示','message':"你输入的关键字不合法"});
+            $("#keyword").focus();
+            return false;
+        }
+        location.href = '/search/1-' + keyword;
+
+    }
+
+    function truncate(headline, length){
+        var count = 0;
+        var output = '';
+        for(var i in headline){
+            output += headline.charAt(i);
+            var code = headline.charCodeAt(i);
+            if (code <= 128){
+                count += 0.5;
+            }
+            else {
+                count += 1;
+            }
+            if (count > length){
+                break;
+            }
+
+        }
+        return output + '...';
+    }
+
+//    在jquery中表示为文档加载完成后开始执行（不要需要按钮或事件触发）
+    $(document).ready(function(){
+    //    第一步：发送Ajax请求去访问recommend接口，获取json
+        $.get('/recommend', function (data) {
+            // alert(data);
+            //    第二步：获取相应并动态填充到对应的推荐栏
+            var lastdata = data[0];
+            var mostdata = data[1];
+            var recommendeddata = data[2]
+            for (var i in lastdata){
+                var articleid = lastdata[i][0];
+                var headline = lastdata[i][1];
+                var id = parseInt(i) + 1;
+                $("#last").append('<li><a href="/article/'+articleid+'">'+id+'. '+ truncate(headline,14)+'</a></li>');
+            }
+            for (var i in mostdata){
+                var articleid = mostdata[i][0];
+                var headline = mostdata[i][1];
+                var id = parseInt(i) + 1;
+                $("#most").append('<li><a href="/article/'+articleid+'">'+id+'. '+ truncate(headline,14)+'</a></li>');
+            }
+            for (var i in recommendeddata){
+                var articleid = recommendeddata[i][0];
+                var headline = recommendeddata[i][1];
+                var id = parseInt(i) + 1;
+                $("#recommended").append('<li><a href="/article/'+articleid+'">'+id+'. ' + truncate(headline,14)+'</a></li>');
+            }
+        })
+
+
+    });
+
+    $(document).ready(function(){
+        // 利用浏览器的user-agent属性判断浏览器类型
+        var userAgentInfo = navigator.userAgent.toLowerCase();
+        var agents = ["android", "iphone", "symbianOS", "windows phone", "ipad", "ipod"];
+        var flag = true;    // 表示是PC端
+        for (var v = 0; v < agents.length; v++) {
+            if (userAgentInfo.indexOf(agents[v]) >= 0) {
+                flag = false;   // 表示这是移动端
+                break;
+            }
+        }
+        // 是PC端时才进行右侧停靠
+        if (flag == true) {
+        var fixedDiv = document.getElementById("fixedmenu");
+        var H = 0;
+        var Y = fixedDiv;
+        while (Y) {
+            H += Y.offsetTop;
+            Y = Y.offsetParent;
+        }
+        window.onscroll = function () {
+            var s = document.body.scrollTop || document.documentElement.scrollTop;
+            if (s > H + 920) {
+                fixedDiv.style = "position:fixed; top:0; margin-top:0; width: 306px;";
+            }
+            else {
+                fixedDiv.style = "";
+            }}
+        }
+    });
+
+    // 回到顶部
+     function gotoTop() {
+        $('html, body').animate({scrollTop: 0}, 800);
+        return false;
+    }
+
+    // // a标签高亮显示
+    // $("a").click(function(){
+    //     $(this).addClass("a");
+    //     $(this).siblings("a").removeClass("a");
+    // });
+
+    // $("a").click(function(){
+    //     $(this).addClass("active").siblings().removeClass("active");
+    // })
+
+</script>

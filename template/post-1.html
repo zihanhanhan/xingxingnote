@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>蜗牛笔记-全功能博客系统</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1,
+          shrink-to-fit=no">
+    <link rel="stylesheet" href="/css/bootstrap.css" type="text/css"/>
+    <link rel="stylesheet" href="/css/woniunote.css" type="text/css"/>
+    <link href="/icon/font/css/open-iconic-bootstrap.css" rel="stylesheet">
+    <script type="text/javascript" src="/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="/js/bootstrap.js"></script>
+
+    <script type="text/javascript" src="/ue/ueditor.config.js"></script>
+    <script type="text/javascript" src="/ue/ueditor.all.min.js"> </script>
+    <script type="text/javascript" src="/ue/lang/zh-cn/zh-cn.js"></script>
+
+    <script type="text/javascript">
+        var ue = UE.getEditor('content', {
+            initialFrameHeight: 400,
+            autoHeightEnabled: false,
+            toolbars: [['anchor', //锚点
+        'undo', //撤销
+        'redo', //重做
+        'bold', //加粗
+        'indent', //首行缩进
+        'snapscreen', //截图
+        'italic', //斜体
+        'underline', //下划线
+        'strikethrough', //删除线
+        'subscript', //下标
+        'fontborder', //字符边框
+        'superscript', //上标
+        'formatmatch', //格式刷
+        'source', //源代码
+        'blockquote', //引用
+        'pasteplain', //纯文本粘贴模式
+        'selectall', //全选
+        'print', //打印
+        'preview', //预览
+        'horizontal', //分隔线
+        'removeformat', //清除格式
+        'time', //时间
+        'date', //日期
+        'unlink', //取消链接
+        'insertrow', //前插入行
+        'insertcol', //前插入列
+        'mergeright', //右合并单元格
+        'mergedown', //下合并单元格
+        'deleterow', //删除行
+        'deletecol', //删除列
+        'splittorows', //拆分成行
+        'splittocols', //拆分成列
+        'splittocells' //完全拆分单元格
+            ]]
+        });
+    </script>
+
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">文章标题
+                <input type="text" class="form-control">
+            </div>
+            <div class="col-12">
+                <script id="content" type="text/plain"></script>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
